@@ -1,0 +1,60 @@
+esphome:
+  name: ledstrip
+
+bk72xx:
+  board: generic-bk7231n-qfn32-tuya
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  ssid: "WIFI_SSID"
+  password: "WIFI_PASSWORD"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ledstrip"
+    password: "xxxxxxxx"
+
+captive_portal:
+
+output:
+  - platform: libretiny_pwm
+    id: output_red
+    pin: P8
+    max_power: 0.8
+  - platform: libretiny_pwm
+    id: output_green
+    pin: P24
+    max_power: 0.2
+  - platform: libretiny_pwm
+    id: output_blue
+    pin: P6
+    max_power: 1.0
+  - platform: libretiny_pwm
+    id: output_ww
+    pin: P26
+    max_power: 0.8
+  - platform: libretiny_pwm
+    id: output_cw
+    pin: P7
+    max_power: 0.8
+    
+light:
+  - platform: rgbww
+    name: "LED-strip"
+    red: output_red
+    green: output_green
+    blue: output_blue
+    cold_white: output_cw
+    warm_white: output_ww
+    cold_white_color_temperature: 6536 K
+    warm_white_color_temperature: 2000 K
+    color_interlock: true
